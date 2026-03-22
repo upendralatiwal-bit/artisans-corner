@@ -1,0 +1,45 @@
+$kind: http-example
+request:
+  url: http://localhost:8000/api/products
+  method: POST
+  body:
+    type: formdata
+    content:
+      - type: text
+        key: name
+        value: Handmade Necklace
+        description: ""
+        disabled: false
+      - type: text
+        key: price
+        value: "40"
+        description: ""
+        disabled: false
+      - type: text
+        key: description
+        value: Handmade silver necklace
+        description: ""
+        disabled: false
+      - type: file
+        key: image
+        src:
+          - postman-cloud:///1f12200a-e908-4fd0-bc80-88285689348d
+        description: ""
+        disabled: false
+response:
+  statusCode: 201
+  statusText: Created
+  headers:
+    x-powered-by: Express
+    access-control-allow-origin: "*"
+    content-type: application/json; charset=utf-8
+    content-length: "332"
+    etag: W/"14c-8DMzTYFcFvKTakmQ5Bnm4mX8btk"
+    date: Tue, 17 Mar 2026 14:48:34 GMT
+    connection: keep-alive
+    keep-alive: timeout=5
+  body:
+    type: json
+    content: '{"name":"Handmade Necklace","price":40,"description":"Handmade silver
+      necklace","image":"https://res.cloudinary.com/difeqxafq/image/upload/v1773758913/ufazdbri6kkfbickxzar.jpg","vendor":"69b6dce66454a75a3991cfb9","_id":"69b969c201e870a0bec76ce1","createdAt":"2026-03-17T14:48:34.552Z","updatedAt":"2026-03-17T14:48:34.552Z","__v":0}'
+order: 1773758940397
