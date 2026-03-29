@@ -20,7 +20,7 @@ app.use(express.json());
 
 // 🔥 Base Route (test)
 app.get("/", (req, res) => {
-  res.send("API is running 🚀");
+  res.send("NEW DEPLOY WORKING 🚀🔥");
 });
 
 // 🔥 API Routes
