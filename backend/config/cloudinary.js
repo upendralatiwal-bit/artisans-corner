@@ -8,7 +8,7 @@ cloudinary.config({
 
 module.exports = cloudinary
 
-console.log("CLOUDINARY CONFIG:", {
-  cloud: process.env.CLOUDINARY_CLOUD_NAME,
-  key: process.env.CLOUDINARY_API_KEY
-})
+//console.log("CLOUDINARY CONFIG:", {
+  //cloud: process.env.CLOUDINARY_CLOUD_NAME,
+  //key: process.env.CLOUDINARY_API_KEY
+//})
