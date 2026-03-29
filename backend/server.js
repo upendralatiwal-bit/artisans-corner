@@ -1,51 +1,45 @@
-require("dotenv").config()
-const express = require("express")
-const mongoose = require("mongoose")
-const dotenv = require("dotenv")
-const cors = require("cors")
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
 
-// 🔥 ROUTES
-const authRoutes = require("./routes/authRoutes")
-const productRoutes = require("./routes/productRoutes")
-const orderRoutes = require("./routes/orderRoutes")
+app.get("/", (req, res) => {
+  res.send("API is running 🚀");
+});
 
-// 🔥 CLOUDINARY
-const cloudinary = require("./config/cloudinary")
+// 🔗 Routes
+const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
-dotenv.config()
+const app = express();
 
-const app = express()
+// 🔥 Middleware
+app.use(cors());
+app.use(express.json());
 
-// 🔥 MIDDLEWARE
-app.use(cors())
-app.use(express.json())
+// 🔥 Base Route (test)
+app.get("/", (req, res) => {
+  res.send("API is running 🚀");
+});
 
-// 🔥 TEST ROUTE (optional)
-app.get("/test-cloudinary", async (req, res) => {
-  try {
-    const result = await cloudinary.uploader.upload(
-      "https://res.cloudinary.com/demo/image/upload/sample.jpg"
-    )
-    res.json(result)
-  } catch (err) {
-    console.log("TEST ERROR:", err)
-    res.status(500).json(err)
-  }
-})
+// 🔥 API Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);
 
-// 🔥 API ROUTES
-app.use("/api/auth", authRoutes)
-app.use("/api/products", productRoutes)
-app.use("/api/orders", orderRoutes)
-
-// 🔥 DB CONNECT
+// 🔥 MongoDB + Server Start
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("MongoDB Connected 🚀")
+    console.log("MongoDB Connected 🚀");
 
-    app.listen(8000, () => {
-      console.log("Server running on port 8000 🔥")
-    })
+    const PORT = process.env.PORT || 8000;
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT} 🔥`);
+    });
   })
-  .catch(err => console.log(err))
+  .catch((err) => {
+    console.log("DB Error:", err);
+  });
