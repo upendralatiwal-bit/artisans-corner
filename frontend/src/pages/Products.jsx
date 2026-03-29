@@ -1,56 +1,73 @@
-import { useContext, useEffect, useState } from "react"
-import { CartContext } from "../context/CartContext"
+import { useEffect, useState } from "react"
 import API from "../api"
 
 function Products() {
   const [products, setProducts] = useState([])
-
-  const { cart, setCart } = useContext(CartContext)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    API.get("/products")
-      .then(res => {
-        console.log("DATA:", res.data)
+    API.get("/products", {
+      headers: { "Cache-Control": "no-cache" }
+    })
+      .then((res) => {
+        console.log("DATA:", res.data) // 🔍 debug
         setProducts(res.data)
+        setLoading(false)
       })
-      .catch(err => console.log(err))
+      .catch((err) => {
+        console.error("ERROR:", err)
+        setError("Failed to load products")
+        setLoading(false)
+      })
   }, [])
 
-  const addToCart = (product) => {
-    const exists = cart.find(item => item._id === product._id)
+  // 🔄 Loading state
+  if (loading) {
+    return <h2>Loading products...</h2>
+  }
 
-    if (exists) {
-      setCart(
-        cart.map(item =>
-          item._id === product._id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      )
-    } else {
-      setCart([...cart, { ...product, quantity: 1 }])
-    }
+  // ❌ Error state
+  if (error) {
+    return <h2>{error}</h2>
   }
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h2>All Products</h2>
 
-      {products.map(p => (
-        <div key={p._id}>
-          <h3>{p.name}</h3>
-          <p>₹{p.price}</p>
-          <p>{p.description}</p>
+      {products.length === 0 ? (
+        <p>No products found</p>
+      ) : (
+        products.map((p) => (
+          <div
+            key={p._id}
+            style={{
+              border: "1px solid #ccc",
+              padding: "15px",
+              marginBottom: "15px",
+              borderRadius: "8px"
+            }}
+          >
+            <h3>{p.name}</h3>
+            <p><strong>Price:</strong> ₹{p.price}</p>
+            <p>{p.description}</p>
 
-          {p.image && (
-            <img src={p.image} width="200" />
-          )}
+            {p.image && (
+              <img
+                src={p.image}
+                alt={p.name}
+                width="200"
+                style={{ borderRadius: "8px", marginTop: "10px" }}
+              />
+            )}
 
-          <button onClick={() => addToCart(p)}>
-            Add to Cart 🛒
-          </button>
-        </div>
-      ))}
+            <div style={{ marginTop: "10px" }}>
+              <button>Add to Cart 🛒</button>
+            </div>
+          </div>
+        ))
+      )}
     </div>
   )
 }

@@ -1,10 +1,12 @@
 import axios from "axios"
 
 const API = axios.create({
-  baseURL: "http://localhost:8000/api"
+  baseURL: "https://artisans-corner.onrender.com/api",
+  headers: {
+    "Cache-Control": "no-cache"
+  }
 })
 
-// 🔥 ADD THIS
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem("token")
 

@@ -1,6 +1,6 @@
 $kind: http-example
 request:
-  url: http://localhost:8000/api/products
+  url: https://artisans-corner.onrender.com/api/products
   method: POST
   body:
     type: formdata
