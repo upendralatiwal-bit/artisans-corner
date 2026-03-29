@@ -13,8 +13,6 @@ const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 
-const app = express();
-
 // 🔥 Middleware
 app.use(cors());
 app.use(express.json());
