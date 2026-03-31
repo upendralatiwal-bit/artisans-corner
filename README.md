@@ -62,11 +62,11 @@ This diagram represents the relationships between users, products, orders, and r
 ## 🧪 Demo Credentials
 
 ### 👤 Buyer
-Email: buyer@test.com  
+Email: testbuyer@gmail.com  
 Password: 123456  
 
 ### 🧑‍💼 Vendor
-Email: vendor@test.com  
+Email: testvendor@gmail.com  
 Password: 123456  
 
 ## 💡 Future Improvements
